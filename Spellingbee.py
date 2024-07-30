@@ -1,36 +1,38 @@
 import string
 
-center_letter = 'c'
-target_letters = ['a','c','g','h','i','n','r']
-all_letters = list(string.ascii_lowercase)
+center_letter = 'o'
+target_letters = ['a','k','l','o','t','u','w']
+anti_letters = list(string.ascii_lowercase)
 
 # creating anti letters list
-anti_letters = []
-for letter in all_letters:
-    if letter not in target_letters:
-        anti_letters.append(letter)
+for letter in target_letters:
+    anti_letters.remove(letter)
 
 # initialization and prep of all words that include the center letter
+file = open('words_alpha.txt')
+words = file.readlines()
 refined_words = []
-all_words = open('words_alpha.txt').readlines()
-for word in all_words:
+for word in words:
     word = word.strip().lower()
     if center_letter in word and len(word) > 3:
         refined_words.append(word)
+file.close()
 
 # create list of all words that can be played
-count = 0
+playable = True
 good_words = []
 for word in refined_words:
     for letter in anti_letters:
         if letter in word:
-            count += 1
+            playable = False
             break
-    if count == 0:
+    if playable:
         good_words.append(word)
-        print(f'{word} is a valid word')
-    count = 0
-print()
+    playable = True
+
+good_words = sorted(good_words, key=len)
+for word in good_words:
+    print(f'{word} is a valid word')
 
 # print all words that are pangrams and perfect pangrams
 pangram = 0
