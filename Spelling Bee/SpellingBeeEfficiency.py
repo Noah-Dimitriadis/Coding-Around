@@ -25,7 +25,7 @@ time_result = time_end - time_start
 space_start = time.time()
 
 #space optimized refine words -> deleting off list instead of adding to a new one
-file = open('words_alpha.txt')
+file = open('SpellingBee/words_alpha.txt')
 words = file.readlines()
 words = [w.strip().lower() for w in words]
 for word in words:

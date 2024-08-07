@@ -2,7 +2,7 @@ import string
 
 def refine_words(center_letter:str) -> list[str]:
     # initialization and prep of all words that include the center letter
-    file = open('words_alpha.txt')
+    file = open('SpellingBee/words_alpha.txt')
     words = file.readlines()
     refined_words = []
     for word in words:
