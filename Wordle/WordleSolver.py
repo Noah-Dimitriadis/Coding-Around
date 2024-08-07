@@ -12,11 +12,9 @@ def load_letter_frequencies() -> dict:
     file.close()
     
     huffman_pairs = dict()
-
     for pairs in lines:
         pair = pairs.strip().split(',')
         huffman_pairs.update({pair[0]:pair[1]})
-    
     return huffman_pairs
     
 
