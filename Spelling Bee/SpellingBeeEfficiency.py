@@ -1,7 +1,8 @@
 #time efficiency testing, same code copied and pasted 
 import time
 import string
-from Spellingbee import refine_words, playable_words
+# from SpellingBee.SpellingbeeSolver import refine_words, playable_words
+from SpellingBeeSolver import refine_words, playable_words
 
 # initialize everything
 center_letter = 'o'
@@ -25,7 +26,7 @@ time_result = time_end - time_start
 space_start = time.time()
 
 #space optimized refine words -> deleting off list instead of adding to a new one
-file = open('SpellingBee/words_alpha.txt')
+file = open('Spelling Bee/words_alpha.txt')
 words = file.readlines()
 words = [w.strip().lower() for w in words]
 for word in words:
