@@ -49,8 +49,8 @@ def pangrams(good_words:list[str], target_letters:list[str]):
 
 
 if __name__ == "__main__":
-    center_letter = 'o'
-    target_letters = ['a','k','l','o','t','u','w']
+    center_letter = 'r'
+    target_letters = ['c','g','i','m','n','p','r']
     anti_letters = list(string.ascii_lowercase)
 
     # creating anti letters list
