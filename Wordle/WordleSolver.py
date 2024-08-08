@@ -1,4 +1,8 @@
 
+guessed_words = []
+confirmed_letters = []
+wrong_letters = []
+
 
 def load_words() -> list[str]:
     file = open('Wordle/5LetterWords.txt')
@@ -14,10 +18,13 @@ def load_letter_frequencies() -> dict:
     huffman_pairs = dict()
     for pairs in lines:
         pair = pairs.strip().split(',')
-        huffman_pairs.update({pair[0]:pair[1]})
+        huffman_pairs.update({pair[0]:float(pair[1])})
     return huffman_pairs
     
+
 
 if __name__ == '__main__':
     huffman_pairs = load_letter_frequencies()
     print(huffman_pairs)
+
+    pass
