@@ -22,9 +22,7 @@ def load_letter_frequencies() -> dict:
         huffman_pairs.update({pair[0]:float(pair[1])})
     return huffman_pairs  
 
-def check_letters(guessed_word:str, result:str):
-    guessed_word = guessed_word.lower()
-    result = result.lower()
+def record_result(guessed_word:str, result:str):
     combined = dict()    
     for i in range(len(guessed_word)):
         combined.update({guessed_word[i]:result[i]})
@@ -42,43 +40,50 @@ def check_letters(guessed_word:str, result:str):
     
 def get_guessed_word() -> str:
     while True:
-            guessed_word = input('Enter the guessed word: ')
-            if guessed_word not in guessed_words and len(guessed_word) == 5:
-                guessed_words.append(guessed_word)
-                return guessed_word
-        
+        guessed_word = input('Enter the guessed word: ')
+        if guessed_word not in guessed_words and len(guessed_word) == 5:
+            guessed_words.append(guessed_word)
+            return guessed_word
+    
+def check_result(result:str) -> bool:
+    for letter in result:
+        if letter != 'g':
+            return False
+    return True
+
 def get_result() -> str:
     while True:
         result = input('Enter the result from your guessed word: ')
         if len(result) == 5:
             return result
         
-def get_valid_words(all_words:list[str]) -> list[str]:
-    valid_words = all_words
+def refine_words(guessed_word:str, result:str, all_words:list[str]) -> list[str]:
+    turn = dict()
+    for i in range(5):
+        turn.update({result[i]:guessed_word[i]})
     for word in all_words:
-        for letter in word:
-            if letter in grey_letters:
-                valid_words.remove(word)
+        for grey_letter in grey_letters:
+            if grey_letter in word:
+                del all_words[all_words.index(word)]
+                print(f'removing {all_words[i]}')
                 break
-            elif letter not in yellow_leters or letter not in green_letters:
-                if word not in valid_words:
-                    break
-                valid_words.remove(word)
-                break
-        
-    return valid_words
-
-if __name__ == '__main__':
-    # huffman_pairs = load_letter_frequencies()
-    # print(huffman_pairs)
-    all_words = load_words()
-    # for i in range (6):
-    guessed_word = get_guessed_word()
-        # print(i)
-    result = get_result()
-    check_letters(guessed_word, result)
-    valid_words = get_valid_words(all_words)
-    print(len(valid_words))
-    print(valid_words)
-        
+            
+    return all_words
     
+if __name__ == '__main__':
+    huffman_pairs = load_letter_frequencies()
+    # print(huffman_pairs)
+
+    # all_words = load_words()
+    # guessed_word = get_guessed_word().lower()
+    # result = get_result().lower()
+    # check_result(result)
+    # record_result(guessed_word, result)
+    # refined_words = refine_words(guessed_word, result, all_words)
+
+    # for word in refined_words:
+    #     if 'f' in word:
+    #         print(word)
+
+    for pair in huffman_pairs:
+        print(f'{pair}:{huffman_pairs.get(pair)}')
