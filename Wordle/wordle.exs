@@ -1,5 +1,5 @@
 # wordle pattern matching for next available words for next guess
-
+# TODO double letter handling
 defmodule Solver do
   @words File.read!("WordBank.txt")
   |> String.split("\n", trim: true)
@@ -45,6 +45,23 @@ defmodule Solver do
     has_yellow and has_green and not has_grey
   end
 
+  defp check_green_pos(word, pattern) do
+    word_chars = String.graphemes(word)
+    pattern
+    |> String.to_charlist()
+    |> Enum.chunk_every(2)
+    |> Enum.filter(fn [symbol, _] -> symbol == ?! end)
+    # |> Enum.map(fn [index, char] -> ) maybe something like this??
+    # find position indexes of green letters
+    # if index of char in word_chars == green char and == green char index return true
+  end
+
+  defp check_yellow_pos(word, pattern) do
+    # word to charlist
+    # find position indexes of green letters
+    # if index of char in word_chars == yellow char and != yellow char index return true
+  end
+
   defp extract_grey_chars(pattern) do
     pattern
     |> String.to_charlist()
@@ -63,7 +80,7 @@ defmodule Solver do
 
   defp extract_green_chars(pattern) do
     pattern
-     |> String.to_charlist()
+    |> String.to_charlist()
     |> Enum.chunk_every(2)
     |> Enum.filter(fn [symbol, _] -> symbol == ?! end)
     |> Enum.map(fn [_, letter] -> <<letter>> end)
